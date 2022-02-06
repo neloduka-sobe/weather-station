@@ -22,20 +22,21 @@ def increase_counter():
 
 # Setup
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(PIN_NUMBER, GPIO.IN)
+GPIO.setup(PIN_NUMBER, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(PIN_NUMBER, GPIO.RISING, callback=increase_counter)
 
 # Main loop
-while True:
-    time.sleep(60)
-    print(f"RPM is {counter}")
-    # calculating speed of wind
-    speed = (2 * math.pi * RADIOUS * counter) / 60
-    print(f"Speed is equal to {speed} m/s")
-    print("Writing data into wind_speed.csv")
-    with open("wind_speed.csv", "a") as f:
-        f.writelines(f"{datetime.now()}, {speed}, {counter}\n")
-    counter = 0
-
-# Cleaning ports
-GPIO.cleanup()
+try:
+    while True:
+        time.sleep(60)
+        print(f"RPM is {counter}")
+        # calculating speed of wind
+        speed = (2 * math.pi * RADIOUS * counter) / 60
+        print(f"Speed is equal to {speed} m/s")
+        print("Writing data into wind_speed.csv")
+        with open("wind_speed.csv", "a") as f:
+            f.writelines(f"{datetime.now()}, {speed}, {counter}\n")
+        counter = 0
+except:
+    # Cleaning ports
+    GPIO.cleanup()
