@@ -7,8 +7,9 @@ from datetime import datetime
 import math
 
 # Constants
-PIN_NUMBER = 5
-RADIOUS = 0.05 # in meters
+PIN_NUMBER = 23
+RADIOUS = 0.04 # in meters
+SIGNALS_PER_REVOLUTION = 4 # signals received from hardware per one revolution
 
 # Globals
 global counter
@@ -23,7 +24,7 @@ def increase_counter():
 # Setup
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PIN_NUMBER, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(PIN_NUMBER, GPIO.RISING, callback=increase_counter)
+GPIO.add_event_detect(PIN_NUMBER, GPIO.FALLING, callback=increase_counter)
 
 # Main loop
 try:
@@ -31,7 +32,7 @@ try:
         time.sleep(60)
         print(f"RPM is {counter}")
         # calculating speed of wind
-        speed = (2 * math.pi * RADIOUS * counter) / 60
+        speed = (2 * math.pi * RADIOUS * (counter/SIGNALS_PER_REVOLUTION)) / 60
         print(f"Speed is equal to {speed} m/s")
         print("Writing data into wind_speed.csv")
         with open("wind_speed.csv", "a") as f:
