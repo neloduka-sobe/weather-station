@@ -16,7 +16,7 @@ global counter
 counter = 0
 
 # Functions
-def increase_counter():
+def increase_counter(channel):
     """Incerases number of spins"""
     global counter
     counter += 1
@@ -30,13 +30,13 @@ GPIO.add_event_detect(PIN_NUMBER, GPIO.FALLING, callback=increase_counter)
 try:
     while True:
         time.sleep(60)
-        print(f"RPM is {counter}")
+        print(f"RPM is {counter/SIGNALS_PER_REVOLUTION}")
         # calculating speed of wind
         speed = (2 * math.pi * RADIOUS * (counter/SIGNALS_PER_REVOLUTION)) / 60
         print(f"Speed is equal to {speed} m/s")
         print("Writing data into wind_speed.csv")
         with open("wind_speed.csv", "a") as f:
-            f.writelines(f"{datetime.now()}, {speed}, {counter}\n")
+            f.writelines(f"{datetime.now()}, {speed}, {counter/SIGNALS_PER_REVOLUTION}\n")
         counter = 0
 except:
     # Cleaning ports
