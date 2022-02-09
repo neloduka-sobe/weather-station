@@ -23,8 +23,10 @@ def increase_counter(channel):
 
 def print_help(program_name):
     """Prints help for the user"""
-    print(f"{program_name} <GPIO-pin> <path-to-csv-file> [debug]")
+    print("Wind meter (https://github.com/neloduka-sobe/wind-meter)")
     print("Usage: ")
+    print(f"{program_name} <GPIO-pin> <path-to-csv-file> [debug]")
+    print("Examples: ")
     print(f"{program_name} 5 /path/to/csvfile")
     print(f"{program_name} 5 /path/to/csvfile debug")
     sys.exit(1)
@@ -41,7 +43,8 @@ try:
     path_to_file = sys.argv[2]
     if len(sys.argv) == 4:
         debug = "debug" == sys.argv[3]
-except:
+
+except (IndexError, ValueError):
     print_help(sys.argv[0])
 
 # Setup
@@ -57,7 +60,7 @@ try:
 
         # Calculating speed of wind, rpm and saving date into variables
         speed = (2 * math.pi * RADIUS * (counter/SIGNALS_PER_REVOLUTION)) / 60
-        rmp = counter/SIGNALS_PER_REVOLUTION
+        rpm = counter/SIGNALS_PER_REVOLUTION
         date = datetime.now()
 
         # Printing debug info
@@ -69,7 +72,7 @@ try:
             f.writelines(f"{date}, {speed}, {rpm}\n")
 
         counter = 0
-except:
+except KeyboardInterrupt:
     # Cleaning ports
     GPIO.cleanup()
     sys.exit(0)
