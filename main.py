@@ -38,6 +38,7 @@ def print_debug(rpm, speed, date):
     print(f"Date is {date}")
 
 # Getting GPIO pin and /path/to/file from sys.argv()
+debug = False
 try:
     pin_number = int(sys.argv[1])
     path_to_file = sys.argv[2]
