@@ -8,7 +8,7 @@ import math
 
 # Constants
 PIN_NUMBER = 23
-RADIOUS = 0.037 # in meters
+RADIUS = 0.037 # in meters
 SIGNALS_PER_REVOLUTION = 4 # signals received from hardware per one revolution
 
 # Globals
@@ -32,7 +32,7 @@ try:
         time.sleep(60)
         print(f"RPM is {counter/SIGNALS_PER_REVOLUTION}")
         # calculating speed of wind
-        speed = (2 * math.pi * RADIOUS * (counter/SIGNALS_PER_REVOLUTION)) / 60
+        speed = (2 * math.pi * RADIUS * (counter/SIGNALS_PER_REVOLUTION)) / 60
         print(f"Speed is equal to {speed} m/s")
         print("Writing data into wind_speed.csv")
         with open("wind_speed.csv", "a") as f:
