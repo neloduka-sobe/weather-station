@@ -8,7 +8,7 @@ import math
 
 # Constants
 PIN_NUMBER = 23
-RADIOUS = 0.04 # in meters
+RADIOUS = 0.037 # in meters
 SIGNALS_PER_REVOLUTION = 4 # signals received from hardware per one revolution
 
 # Globals
