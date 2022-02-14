@@ -10,7 +10,7 @@ import sys
 global pin_a, pin_b
 
 # Setup
-GPIO.stmode(GPIO.BMC)
+GPIO.setmode(GPIO.BCM)
 
 # Functions
 def print_help(program_name):
@@ -39,7 +39,7 @@ def measure_charge_time():
     """Recharges capacitor and returns time of it"""
     GPIO.setup(pin_b, GPIO.IN)
     GPIO.setup(pin_a, GPIO.OUT)
-    self.counter = 0
+    counter = 0
     GPIO.output(pin_a, True)
     while not GPIO.input(pin_b):
         counter += 1
@@ -80,6 +80,7 @@ if __name__ == "__main__":
             # saves data from sensor to the variable
             time = read_data()
             percentage = calculate_percentage(time)
+            date = datetime.now()
 
             # printing debug info
             if debug:
