@@ -23,7 +23,7 @@ def increase_counter(channel):
 
 def print_help(program_name):
     """Prints help for the user"""
-    print("Wind meter (https://github.com/neloduka-sobe/wind-meter)")
+    print("Wind speed (https://github.com/neloduka-sobe/wind-station)")
     print("Usage: ")
     print(f"{program_name} <GPIO-pin> <path-to-csv-file> [debug]")
     print("Examples: ")
