@@ -36,7 +36,7 @@ def discharge():
         sleep(0.004) # wait for capacitor to discharge
 
 def measure_charge_time():
-    """Recharges capacitor and returns time of it"""
+    """Recharges capacitor and returns time of recharging"""
     GPIO.setup(pin_b, GPIO.IN)
     GPIO.setup(pin_a, GPIO.OUT)
     counter = 0
@@ -85,7 +85,7 @@ if __name__ == "__main__":
             if debug:
                 print_debug(time, percentage)
 
-            # if percentage results differ write it into the file
+            # if following percentage results differ write it into the file
             if last != int(percentage):
                 with open(path_to_file, "a") as f:
                     f.writelines(f"{date}, {int(percentage)}\n")
