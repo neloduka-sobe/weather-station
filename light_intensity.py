@@ -88,8 +88,8 @@ if __name__ == "__main__":
             # if percentage results differ write it into the file
             if last != percentage:
                 with open(path_to_file, "a") as f:
-                    f.writelines(f"{date}, {percentage}\n")
-            last = percentage
+                    f.writelines(f"{date}, {int(percentage)}\n")
+            last = int(percentage)
             sleep(60)
 
     except KeyboardInterrupt:
