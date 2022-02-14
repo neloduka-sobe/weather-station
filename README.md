@@ -3,6 +3,7 @@ Station measuring light intensity and wind speed build on raspberry pi
 
 ### Setting up
 **Linux**
+
 To download programs and make them executable 
 ```
 git clone https://github.com/neloduka-sobe/weather-station.git
