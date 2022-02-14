@@ -86,7 +86,7 @@ if __name__ == "__main__":
                 print_debug(time, percentage)
 
             # if percentage results differ write it into the file
-            if last != percentage:
+            if last != int(percentage):
                 with open(path_to_file, "a") as f:
                     f.writelines(f"{date}, {int(percentage)}\n")
             last = int(percentage)
