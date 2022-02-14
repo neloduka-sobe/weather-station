@@ -37,43 +37,46 @@ def print_debug(rpm, speed, date):
     print(f"Speed is equal to {speed} m/s")
     print(f"Date is {date}")
 
-# Getting GPIO pin and /path/to/file from sys.argv()
-debug = False
-try:
-    pin_number = int(sys.argv[1])
-    path_to_file = sys.argv[2]
-    if len(sys.argv) == 4:
-        debug = "debug" == sys.argv[3]
 
-except (IndexError, ValueError):
-    print_help(sys.argv[0])
+if __name__ == "__main__":
+    
+    # Getting GPIO pin and /path/to/file from sys.argv()
+    debug = False
+    try:
+        pin_number = int(sys.argv[1])
+        path_to_file = sys.argv[2]
+        if len(sys.argv) == 4:
+            debug = "debug" == sys.argv[3]
 
-# Setup
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(pin_number, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(pin_number, GPIO.FALLING, callback=increase_counter)
+    except (IndexError, ValueError):
+        print_help(sys.argv[0])
 
-# Main loop
-try:
-    while True:
-        # Waiting for data to be collected
-        time.sleep(60)
+    # Setup
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(pin_number, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.add_event_detect(pin_number, GPIO.FALLING, callback=increase_counter)
 
-        # Calculating speed of wind, rpm and saving date into variables
-        speed = (2 * math.pi * RADIUS * (counter/SIGNALS_PER_REVOLUTION)) / 60
-        rpm = counter/SIGNALS_PER_REVOLUTION
-        date = datetime.now()
+    # Main loop
+    try:
+        while True:
+            # Waiting for data to be collected
+            time.sleep(60)
 
-        # Printing debug info
-        if debug:
-            print_debug(rpm, speed, date)
+            # Calculating speed of wind, rpm and saving date into variables
+            speed = (2 * math.pi * RADIUS * (counter/SIGNALS_PER_REVOLUTION)) / 60
+            rpm = counter/SIGNALS_PER_REVOLUTION
+            date = datetime.now()
 
-        # Writing data into the file
-        with open(path_to_file, "a") as f:
-            f.writelines(f"{date}, {speed}, {rpm}\n")
+            # Printing debug info
+            if debug:
+                print_debug(rpm, speed, date)
 
-        counter = 0
-except KeyboardInterrupt:
-    # Cleaning ports
-    GPIO.cleanup()
-    sys.exit(0)
+            # Writing data into the file
+            with open(path_to_file, "a") as f:
+                f.writelines(f"{date}, {speed}, {rpm}\n")
+
+            counter = 0
+    except KeyboardInterrupt:
+        # Cleaning ports
+        GPIO.cleanup()
+        sys.exit(0)
