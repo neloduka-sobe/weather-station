@@ -76,7 +76,6 @@ if __name__ == "__main__":
     try:
         last = -1
         while True:
-            sleep(60)
             # saves data from sensor to the variable
             time = read_data()
             percentage = calculate_percentage(time)
@@ -91,6 +90,7 @@ if __name__ == "__main__":
                 with open(path_to_file, "a") as f:
                     f.writelines(f"{date}, {percentage}\n")
             last = percentage
+            sleep(60)
 
     except KeyboardInterrupt:
         # Cleaning ports
