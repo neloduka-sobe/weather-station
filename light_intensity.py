@@ -5,6 +5,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 from datetime import datetime
 import sys
+import math
 
 # Globals
 global pin_a, pin_b
@@ -53,7 +54,8 @@ def read_data():
 
 def calculate_percentage(time):
     """Calculates light intensity in %"""
-    result = (10000-time)/(100)
+    time = 2500-time
+    result = 24.2262017*math.log(time) - 88.21673
     if result < 0:
         return 0
     return result
