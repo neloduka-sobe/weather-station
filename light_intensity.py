@@ -54,8 +54,7 @@ def read_data():
 
 def calculate_percentage(time):
     """Calculates light intensity in %"""
-    time = 2500-time
-    result = 24.2262017*math.log(time) - 88.21673
+    result = 198.427582978 * (time**(-0.542231885))
     if result < 0:
         return 0
     return result
