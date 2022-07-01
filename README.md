@@ -1,6 +1,9 @@
 # weather-station
 Station measuring light intensity and wind speed build on raspberry pi
 
+![Photo of the weather station without sealing](https://github.com/neloduka-sobe/weather-station/blob/main/image.jpg?raw=true)
+Photo of the wearher station without sealing
+
 ### Setting up
 **Linux**
 
